@@ -1,0 +1,16 @@
+# Compiled files
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+
+# Module directory
+.terraform/
+
+# Credentials
+backend*
+!backend.tf.example
+*.tfvars
+
+#MacOS
+.DS_Store
