@@ -1,6 +1,6 @@
 resource "aws_iam_instance_profile" "ssm" {
-  name  = local.name
-  role = "${aws_iam_role.ssm.name}"
+  name = local.name
+  role = aws_iam_role.ssm.name
 }
 
 resource "aws_iam_role" "ssm" {
@@ -31,8 +31,8 @@ resource "aws_iam_policy" "ssm" {
 }
 
 resource "aws_iam_role_policy_attachment" "ssm" {
-  role       = "${aws_iam_role.ssm.name}"
-  policy_arn = "${aws_iam_policy.ssm.arn}"
+  role       = aws_iam_role.ssm.name
+  policy_arn = aws_iam_policy.ssm.arn
 }
 
 resource "aws_network_interface" "interface" {
@@ -43,10 +43,16 @@ resource "aws_network_interface" "interface" {
   }
 }
 
+resource "aws_key_pair" "deployer" {
+  key_name   = var.key_name
+  public_key = var.public_key
+}
+
 resource "aws_instance" "instance" {
   ami                  = var.amazon_linux_ami
   instance_type        = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.ssm.id
+  key_name             = aws_key_pair.deployer.key_name
 
   network_interface {
     network_interface_id = aws_network_interface.interface.id

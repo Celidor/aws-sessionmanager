@@ -151,18 +151,18 @@ EOF
 
 resource "aws_security_group" "secgroup_group" {
 
-	name = local.name
+  name = local.name
 
-	vpc_id = "${aws_vpc.vpc.id}"
+  vpc_id = aws_vpc.vpc.id
 
-	egress {
-		from_port = 443
-		to_port = 443
-		protocol = "tcp"
-		cidr_blocks = ["0.0.0.0/0"]
-	}
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
-	tags = {
-		Name = local.name
-	}
+  tags = {
+    Name = local.name
+  }
 }

@@ -41,3 +41,11 @@ variable "flow_log_retention_in_days" {
 variable "bucket_name" {
   description = "Bucket Name used for Session Manager logging"
 }
+
+variable "key_name" {
+  description = "Engineer name, e.g. john-smith"
+}
+
+variable "public_key" {
+  description = "SSH public key used to build instance to allow login from laptop"
+}
