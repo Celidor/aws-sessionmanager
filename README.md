@@ -1,6 +1,8 @@
 # aws-sessionmanager
 AWS EC2 instance using Systems Manager Session Manager
 
+<img src="images/session-manager.png">
+
 ## how to deploy
 * if deploying from your laptop, duplicate `terraform.tfvars.example`
 * rename without the `.example` suffix
@@ -20,9 +22,10 @@ terraform apply
 * Choose the Session Manager tab
 <img src="images/connect.png" width="400">
 * You now have a remote SSH session in your browser
+
 <img src="images/session.png" width="200">
 
-## AWS CLI session from laptop - usage
+## AWS CLI session from laptop
 * allows copying and pasting but not SCP
 * ensure you have AWS CLI v2
 * [install the AWS CLI Session Manager plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
