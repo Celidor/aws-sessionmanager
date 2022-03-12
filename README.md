@@ -16,11 +16,11 @@ terraform apply
 ```
 
 ## do I need a SSH key?
-* you only need a SSH key for options 1, 2 and 3 below
+* you don't need a SSH key for options 1, 2 and 3 below
 * in this case *exclude* the AWS key pair from your environment
 * from a security perspective, it's better not to use SSH keys
 * avoids issues with SSH key management
-* there is no S3 / Cloudwatch logging of connections made with SSH keys 
+* there is also no S3 / Cloudwatch logging of connections made with SSH keys 
 
 ## 1. remote SSH session in console
 * A remote SSH session in the AWS console doesn't require a SSH key
