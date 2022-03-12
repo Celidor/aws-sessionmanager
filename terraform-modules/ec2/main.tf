@@ -43,6 +43,7 @@ resource "aws_network_interface" "interface" {
   }
 }
 
+# EXCLUDE RESOURCE BELOW UNLESS SSH KEYS ARE ESSENTIAL
 resource "aws_key_pair" "deployer" {
   key_name   = var.key_name
   public_key = var.public_key
@@ -52,6 +53,8 @@ resource "aws_instance" "instance" {
   ami                  = var.amazon_linux_ami
   instance_type        = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.ssm.id
+  
+  # EXCLUDE LINE BELOW UNLESS SSH KEYS ARE ESSENTIAL
   key_name             = aws_key_pair.deployer.key_name
 
   network_interface {
