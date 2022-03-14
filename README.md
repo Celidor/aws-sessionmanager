@@ -4,6 +4,22 @@ AWS EC2 instance using Systems Manager Session Manager
 <img src="images/session-manager.png">
 
 * for testing and demonstration of different Session Manager connection options
+
+## why you should use Session Manager
+Session Manager is a **much** more secure way of accessing EC2 instances than a Bastion. 
+
+It can eliminate the risk of SSH / RDP attacks from the public Internet using brute force attack or stolen credentials:
+
+* no need for public IPs on EC2 instances 
+* no security group rules allowing inbound SSH
+* no need for SSH keys or passwords
+* uses AWS IAM identities
+* access logs in S3 and/or CloudWatch Logs
+* no need for separate Bastion server
+* access EC2 instances in public or private subnets
+* can even work without an Internet Gateway using VPC Endpoint
+* supports SSH, RDP and port forwarding
+
 ## how to deploy
 * if deploying from your laptop, duplicate `terraform.tfvars.example`
 * rename without the `.example` suffix
