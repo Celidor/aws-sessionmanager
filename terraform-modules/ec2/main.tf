@@ -68,6 +68,9 @@ resource "aws_instance" "instance" {
     http_tokens   = "required"
   }
 
+  # install Apache for port forwarding demo
+  user_data = file("${path.module}/user-data-apache")
+
   tags = {
     Name = local.name
   }

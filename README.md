@@ -60,23 +60,9 @@ aws ssm start-session --target i-08d33c2c6302550fa --region eu-west-1
 ```
 
 ## 3. port forwarding from laptop to service on the host
-* connect to the server using 1 or 2 above
-* install Apache (this could be included in user-data)
-```
-sudo yum install -y httpd
-sudo systemctl start httpd
-sudo systemctl enable httpd
-```
-* logout
-```
-exit
-```
 * set up port forwarding
 ```
-aws ssm start-session \         
-    --target i-08d33c2c6302550fa \
-    --document-name AWS-StartPortForwardingSession \
-    --parameters '{"portNumber":["80"], "localPortNumber":["9999"]}'
+aws ssm start-session --target i-08d33c2c6302550fa --document-name AWS-StartPortForwardingSession --parameters '{"portNumber":["80"], "localPortNumber":["9999"]}'
 ```
 * browse to `localhost:9999`
 <img src="images/apache.png">
