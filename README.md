@@ -38,7 +38,10 @@ terraform apply
 * avoids issues with SSH key management
 * there is also no S3 / Cloudwatch logging of connections made with SSH keys 
 
-## 1. remote SSH session in console
+## SSH to Linux
+5 ways to connect to a Linux EC2 instance using SSH:
+
+### 1. remote SSH session in console
 * A remote SSH session in the AWS console doesn't require a SSH key
 * In the AWS Console, EC2, select the instance
 <img src="images/instance.png" width="500">
@@ -49,7 +52,7 @@ terraform apply
 
 <img src="images/session.png" width="200">
 
-## 2. AWS CLI session from laptop
+### 2. AWS CLI session from laptop
 * allows copying and pasting but not SCP
 * ensure you have AWS CLI v2
 * [install the AWS CLI Session Manager plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
@@ -60,7 +63,7 @@ terraform apply
 aws ssm start-session --target i-08d33c2c6302550fa --region eu-west-1
 ```
 
-## 3. port forwarding from laptop to service on the host
+### 3. port forwarding from laptop to service on the host
 * set up port forwarding
 ```
 aws ssm start-session --target i-08d33c2c6302550fa --document-name AWS-StartPortForwardingSession --parameters '{"portNumber":["80"], "localPortNumber":["9999"]}'
@@ -68,7 +71,7 @@ aws ssm start-session --target i-08d33c2c6302550fa --document-name AWS-StartPort
 * browse to `localhost:9999`
 <img src="images/apache.png">
 
-## 4a. remote SSH session from laptop - setup
+### 4a. remote SSH session from laptop - setup
 SSH from your laptop allowing use of SCP to transfer files
 * requires SSH public key on instance
 * ensure you have AWS CLI v2
@@ -81,7 +84,7 @@ host i-* mi-*
     ProxyCommand sh -c "aws ssm start-session --target %h --document-name AWS-StartSSHSession --parameters 'portNumber=%p'"
 ```
 
-## 4b. remote SSH session from laptop - usage
+### 4b. remote SSH session from laptop - usage
 SSH from your laptop allowing use of SCP to transfer files
 * open Terminal
 * use default credentials, or set environment variables for AWS credentials
@@ -95,14 +98,14 @@ ssh ec2-user@i-08d33c2c6302550fa
 ```
 <img src="images/ssh-session.png" width="500">
 
-## 5. scp files from laptop to EC2 instance
+### 5. scp files from laptop to EC2 instance
 * SCP from laptop (assuming default SSH key used)
 ```
 scp Desktop/sample-file.txt ec2-user@i-08d33c2c6302550fa:~
 ```
 <img src="images/scp.png" width="500">
 
-## Windows RDP
+## RDP to Windows
 * An AWS key pair is needed to retrieve the administrator password
 * Open the AWS console and select the Windows instance
 * Select Actions, Security, Get Windows password
