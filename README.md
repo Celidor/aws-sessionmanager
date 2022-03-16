@@ -55,6 +55,7 @@ terraform apply
 * [install the AWS CLI Session Manager plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
 * open Terminal
 * use default credentials, or export AWS credentials to your session
+* replace the example instance ID in the command below:
 ```
 aws ssm start-session --target i-08d33c2c6302550fa --region eu-west-1
 ```
@@ -83,8 +84,8 @@ host i-* mi-*
 ## 4b. remote SSH session from laptop - usage
 SSH from your laptop allowing use of SCP to transfer files
 * open Terminal
-* use default credentials, or export AWS credentials to your session
-* if AWS region isn't specified in exported AWS credentials:
+* use default credentials, or set environment variables for AWS credentials
+* if AWS region isn't specified:
 ```
 export AWS_REGION=eu-west-1
 ```
@@ -106,8 +107,11 @@ scp Desktop/sample-file.txt ec2-user@i-08d33c2c6302550fa:~
 * Open the AWS console and select the Windows instance
 * Select Actions, Security, Get Windows password
 * Paste your private key into the box, or browse to the file
+
+<img src="images/windows-password.png" width="500">
+
 * Copy the Windows password
-* Start a port forwarding session
+* Start a port forwarding session (replace the example instance ID)
 ```
 aws ssm start-session --target i-0c09d80c16edef9d8 --document-name AWS-StartPortForwardingSession --parameters '{"portNumber":["3389"], "localPortNumber":["3389"]}'
 ```
