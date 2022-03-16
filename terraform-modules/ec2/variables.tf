@@ -1,7 +1,12 @@
 variable "project" {}
 variable "amazon_linux_ami" {}
-variable "instance_type" {}
+variable "windows_server_ami" {}
+variable "instance_type_linux" {}
+variable "instance_type_windows" {}
 variable "subnet_id" {}
 variable "bucket_name" {}
 variable "key_name" {}
 variable "public_key" {}
+variable "security_group_id" {}
+variable "volume_type" {}
+variable "disk_size_windows" {}

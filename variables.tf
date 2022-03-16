@@ -16,9 +16,29 @@ variable "amazon_linux_ami" {
   default     = "ami-01ddabedd99da311e"
 }
 
-variable "instance_type" {
+variable "windows_server_ami" {
+  description = "AMI for Windows Server 2022 in default region"
+  default     = "ami-0782eaff65f13ad4e"
+}
+
+variable "instance_type_linux" {
   description = "Instance type"
   default     = "t3.micro"
+}
+
+variable "instance_type_windows" {
+  description = "Instance type"
+  default     = "t3.small"
+}
+
+variable "volume_type" {
+  description = "ec2 volume type"
+  default     = "gp3"
+}
+
+variable "disk_size_windows" {
+  description = "root disk size for Windows"
+  default     = "30"
 }
 
 variable "vpc_cidr" {

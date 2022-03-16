@@ -32,7 +32,7 @@ terraform apply
 ```
 
 ## do I need a SSH key?
-* you don't need a SSH key for options 1, 2 and 3 below
+* you don't need a SSH key for Linux options 1, 2 and 3 below
 * in this case *exclude* the AWS key pair from your environment
 * from a security perspective, it's better not to use SSH keys
 * avoids issues with SSH key management
@@ -100,3 +100,25 @@ ssh ec2-user@i-08d33c2c6302550fa
 scp Desktop/sample-file.txt ec2-user@i-08d33c2c6302550fa:~
 ```
 <img src="images/scp.png" width="500">
+
+## Windows RDP
+* An AWS key pair is needed to retrieve the administrator password
+* Open the AWS console and select the Windows instance
+* Select Actions, Security, Get Windows password
+* Paste your private key into the box, or browse to the file
+* Copy the Windows password
+* Start a port forwarding session
+```
+aws ssm start-session --target i-0c09d80c16edef9d8 --document-name AWS-StartPortForwardingSession --parameters '{"portNumber":["3389"], "localPortNumber":["3389"]}'
+```
+* open Microsoft Remote Desktop
+* add a new PC with the destination `localhost`
+
+<img src="images/remote-desktop.png" width="400">
+
+* enter username `Administrator` and paste in the Windows password
+* accept the certificate when prompted
+
+<img src="images/windows.png">
+
+* test Internet access using the Edge browser
