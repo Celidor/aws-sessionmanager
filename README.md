@@ -11,8 +11,8 @@ Session Manager is a **much** more secure way of accessing EC2 instances than a 
 It can eliminate the risk of SSH / RDP attacks from the public Internet using brute force attack or stolen credentials:
 
 * no need for public IPs on EC2 instances 
-* no security group rules allowing inbound SSH
-* no need for SSH keys or passwords
+* no security group rules allowing inbound SSH or RDP
+* no need for SSH keys or SSH passwords
 * uses AWS IAM identities
 * access logs in S3 and/or CloudWatch Logs
 * no need for separate Bastion server
