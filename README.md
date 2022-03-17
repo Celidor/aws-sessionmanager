@@ -113,9 +113,10 @@ scp Desktop/sample-file.txt ec2-user@i-08d33c2c6302550fa:~
 * Press Connect
 * Choose the Session Manager tab
 * Press Connect
-* You now have a remote PowerShell session in your browser
 
   <img src="images/powershell.png" width="500">
+
+* You now have a remote PowerShell session in your browser
 
 ### 2. RDP via port forwarding
 * An AWS key pair is needed to retrieve the administrator password
