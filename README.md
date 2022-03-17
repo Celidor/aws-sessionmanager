@@ -38,17 +38,17 @@ terraform apply
 * avoids issues with SSH key management
 * there is also no S3 / Cloudwatch logging of connections made with SSH keys 
 
-## SSH to Linux
-5 ways to connect to a Linux EC2 instance using SSH:
+## Linux
+5 ways to connect to a Linux EC2 instance:
 
-### 1. remote SSH session in console
+### 1. Bash shell in AWS console
 * A remote SSH session in the AWS console doesn't require a SSH key
 * In the AWS Console, EC2, select the instance
 <img src="images/instance.png" width="500">
 * Press Connect
 * Choose the Session Manager tab
 <img src="images/connect.png" width="400">
-* You now have a remote SSH session in your browser
+* You now have a remote bash shell session in your browser
 
 <img src="images/session.png" width="200">
 
@@ -105,7 +105,19 @@ scp Desktop/sample-file.txt ec2-user@i-08d33c2c6302550fa:~
 ```
 <img src="images/scp.png" width="500">
 
-## RDP to Windows
+## Windows
+2 ways to connect to Windows servers
+
+### 1. PowerShell via AWS console
+* In the AWS Console, EC2, select the Windows instance
+* Press Connect
+* Choose the Session Manager tab
+* Press Connect
+* You now have a remote PowerShell session in your browser
+
+  <img src="images/powershell.png" width="500">
+
+### 2. RDP via port forwarding
 * An AWS key pair is needed to retrieve the administrator password
 * Open the AWS console and select the Windows instance
 * Select Actions, Security, Get Windows password
