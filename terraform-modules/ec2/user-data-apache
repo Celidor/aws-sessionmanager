@@ -9,3 +9,6 @@ yum install -y httpd.x86_64
 systemctl start httpd.service
 systemctl enable httpd.service
 echo '<font face="verdana,arial,sans-serif"><h1>Ditch the Bastions!</h1></font>' > /var/www/html/index.html
+
+# install socat for port forwarding
+sudo yum install -y socat

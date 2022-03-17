@@ -113,8 +113,8 @@ scp Desktop/sample-file.txt ec2-user@i-08d33c2c6302550fa:~
 * Press Connect
 * Choose the Session Manager tab
 * Press Connect
-
-  <img src="images/powershell.png" width="500">
+  
+<img src="images/powershell.png" width="500">
 
 * You now have a remote PowerShell session in your browser
 
@@ -142,3 +142,29 @@ aws ssm start-session --target i-0c09d80c16edef9d8 --document-name AWS-StartPort
 <img src="images/windows.png">
 
 * test Internet access using the Edge browser
+
+## Port forward to RDS instance
+* connect from your laptop to an RDS database in an AWS private subnet
+* requires socat which has already been installed using [user-data](terraform-modules/ec2/user-data-apache)
+* login to Linux server using Session Manager via the console
+* set up bidirectional byte stream from Linux EC2 instance to RDS
+* replace database address with output value from Terraform
+```
+socat TCP-LISTEN:3306,reuseaddr,fork TCP4:terraform-20220317154901310000000001.ccrkfpq3j6wo.eu-west-1.rds.amazonaws.com:3306
+```
+* using terminal from your laptop, set up port forwarding
+```
+aws ssm start-session --target i-075256981bbf40bc5 --document-name AWS-StartPortForwardingSession --parameters '{"portNumber":["3306"], "localPortNumber":["3306"]}'
+```
+* use a SQL client such as Sequel Ace to connect
+* replace database username and password with output from Terraform
+
+<img src="images/sql-connect.png" width="500">
+
+* press Connect
+* select a database
+* run a query
+
+<img src="images/sql-query.png" width="500">
+
+* Based on [Gert Leenders blog](https://www.element7.io/2021/01/aws-ssm-session-manager-port-forwarding-to-rds-without-ssh/)

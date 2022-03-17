@@ -22,6 +22,18 @@ resource "aws_subnet" "subnet_dmz_az1" {
   }
 }
 
+resource "aws_subnet" "subnet_dmz_az2" {
+
+  vpc_id                  = aws_vpc.vpc.id
+  availability_zone       = var.az2
+  cidr_block              = var.subnet_dmz_cidr_az2
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "${var.project}-dmz-az2-${local.env}"
+  }
+}
+
 resource "aws_subnet" "subnet_priv_az1" {
 
   vpc_id                  = aws_vpc.vpc.id
@@ -34,7 +46,24 @@ resource "aws_subnet" "subnet_priv_az1" {
   }
 }
 
+resource "aws_subnet" "subnet_priv_az2" {
+
+  vpc_id                  = aws_vpc.vpc.id
+  availability_zone       = var.az2
+  cidr_block              = var.subnet_priv_cidr_az2
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "${var.project}-private-az2-${local.env}"
+  }
+}
+
 resource "aws_eip" "eip_natgw_az1" {
+
+  vpc = true
+}
+
+resource "aws_eip" "eip_natgw_az2" {
 
   vpc = true
 }
@@ -52,6 +81,12 @@ resource "aws_nat_gateway" "natgw_az1" {
 
   allocation_id = aws_eip.eip_natgw_az1.id
   subnet_id     = aws_subnet.subnet_dmz_az1.id
+}
+
+resource "aws_nat_gateway" "natgw_az2" {
+
+  allocation_id = aws_eip.eip_natgw_az2.id
+  subnet_id     = aws_subnet.subnet_dmz_az2.id
 }
 
 resource "aws_route_table" "rtb_dmz" {
@@ -74,6 +109,12 @@ resource "aws_route_table_association" "rtb_dmz_to_dmz_az1" {
   subnet_id      = aws_subnet.subnet_dmz_az1.id
 }
 
+resource "aws_route_table_association" "rtb_dmz_to_dmz_az2" {
+
+  route_table_id = aws_route_table.rtb_dmz.id
+  subnet_id      = aws_subnet.subnet_dmz_az2.id
+}
+
 resource "aws_route_table" "rtb_pvt_az1" {
 
   vpc_id = aws_vpc.vpc.id
@@ -88,10 +129,30 @@ resource "aws_route_table" "rtb_pvt_az1" {
   }
 }
 
+resource "aws_route_table" "rtb_pvt_az2" {
+
+  vpc_id = aws_vpc.vpc.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.natgw_az2.id
+  }
+
+  tags = {
+    Name = "${var.project}-private-az2-${local.env}"
+  }
+}
+
 resource "aws_route_table_association" "rtb_dmz_to_priv_az1" {
 
   route_table_id = aws_route_table.rtb_pvt_az1.id
   subnet_id      = aws_subnet.subnet_priv_az1.id
+}
+
+resource "aws_route_table_association" "rtb_dmz_to_priv_az2" {
+
+  route_table_id = aws_route_table.rtb_pvt_az2.id
+  subnet_id      = aws_subnet.subnet_priv_az2.id
 }
 
 resource "aws_flow_log" "vpc" {
@@ -169,7 +230,32 @@ resource "aws_security_group" "secgroup_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  egress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = [var.subnet_priv_cidr_az1, var.subnet_priv_cidr_az2]
+  }
+
   tags = {
     Name = local.name
+  }
+}
+
+resource "aws_security_group" "database_group" {
+
+  name = "${var.project}-db-${local.env}"
+
+  vpc_id = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = [var.subnet_priv_cidr_az1, var.subnet_priv_cidr_az2]
+  }
+
+  tags = {
+    Name = "${var.project}-db-${local.env}"
   }
 }

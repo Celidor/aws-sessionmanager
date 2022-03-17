@@ -11,6 +11,10 @@ variable "az1" {
   default = "eu-west-1a"
 }
 
+variable "az2" {
+  default = "eu-west-1b"
+}
+
 variable "amazon_linux_ami" {
   description = "AMI for Amazon Linux 2 Kernel 4.x in default region"
   default     = "ami-01ddabedd99da311e"
@@ -51,6 +55,14 @@ variable "subnet_dmz_cidr_az1" {
 
 variable "subnet_priv_cidr_az1" {
   default = "10.245.2.0/24"
+}
+
+variable "subnet_dmz_cidr_az2" {
+  default = "10.245.3.0/24"
+}
+
+variable "subnet_priv_cidr_az2" {
+  default = "10.245.4.0/24"
 }
 
 variable "flow_log_retention_in_days" {
