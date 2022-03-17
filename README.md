@@ -167,4 +167,4 @@ aws ssm start-session --target i-075256981bbf40bc5 --document-name AWS-StartPort
 
 <img src="images/sql-query.png" width="500">
 
-* Based on [Gert Leenders blog](https://www.element7.io/2021/01/aws-ssm-session-manager-port-forwarding-to-rds-without-ssh/)
+* Port forwarding to RDS based on [Gert Leenders blog](https://www.element7.io/2021/01/aws-ssm-session-manager-port-forwarding-to-rds-without-ssh/)
