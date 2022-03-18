@@ -99,6 +99,7 @@ ssh ec2-user@i-08d33c2c6302550fa
 <img src="images/ssh-session.png" width="500">
 
 ### 5. scp files from laptop to EC2 instance
+* requires SSH public key on instance
 * SCP from laptop (assuming default SSH key used)
 ```
 scp Desktop/sample-file.txt ec2-user@i-08d33c2c6302550fa:~
