@@ -3,7 +3,8 @@ variable "amazon_linux_ami" {}
 variable "windows_server_ami" {}
 variable "instance_type_linux" {}
 variable "instance_type_windows" {}
-variable "subnet_id" {}
+variable "linux_subnet_id" {}
+variable "windows_subnet_id" {}
 variable "bucket_name" {}
 variable "key_name" {}
 variable "public_key" {}

@@ -37,7 +37,7 @@ resource "aws_iam_role_policy_attachment" "ssm" {
 
 # Amazon Linux2 network interface
 resource "aws_network_interface" "interface_linux" {
-  subnet_id       = var.subnet_id
+  subnet_id       = var.linux_subnet_id
   security_groups = [var.security_group_id]
 
   tags = {
@@ -82,7 +82,7 @@ resource "aws_instance" "linux" {
 
 # Windows network interface
 resource "aws_network_interface" "interface_windows" {
-  subnet_id       = var.subnet_id
+  subnet_id       = var.windows_subnet_id
   security_groups = [var.security_group_id]
 
   tags = {

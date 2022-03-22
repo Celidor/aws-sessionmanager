@@ -18,7 +18,8 @@ module "ec2" {
   windows_server_ami    = var.windows_server_ami
   instance_type_linux   = var.instance_type_linux
   instance_type_windows = var.instance_type_windows
-  subnet_id             = module.vpc.az1_private_subnet_id
+  linux_subnet_id       = module.vpc.az1_private_subnet_id
+  windows_subnet_id     = module.vpc.az2_private_subnet_id
   bucket_name           = var.bucket_name
   key_name              = var.key_name
   public_key            = var.public_key
