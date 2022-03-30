@@ -3,6 +3,13 @@
 # get admin privileges
 sudo su
 
+# check Internet connectivity
+until ping -q -c 1 -W 1 8.8.8.8 >/dev/null; do
+  echo "checking for Internet connectivity"
+  sleep 1
+done
+echo "Internet connectivity established"
+
 # install httpd (Linux 2 version)
 yum update -y
 yum install -y httpd.x86_64
