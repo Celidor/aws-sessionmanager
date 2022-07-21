@@ -22,7 +22,7 @@ variable "amazon_linux_ami" {
 
 variable "windows_server_ami" {
   description = "AMI for Windows Server 2022 in default region"
-  default     = "ami-0782eaff65f13ad4e"
+  default     = "ami-001beed4bb2efbb3f"
 }
 
 variable "instance_type_linux" {
